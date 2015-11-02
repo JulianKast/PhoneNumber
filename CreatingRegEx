@@ -1,0 +1,85 @@
+using System;
+using System.CodeDom.Compiler;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication3
+{
+    class Program
+    {
+         static void Main(string[] args)
+        {
+
+            List<string> PhoneNum = new List<string>();
+
+          
+            
+    
+         
+            PhoneNum.Add("9897756");
+            PhoneNum.Add("8765432");
+            PhoneNum.Add("2547462");
+            PhoneNum.Add("9897561");
+            PhoneNum.Add("9897423");
+            PhoneNum.Add("8765445");
+            PhoneNum.Add("2547462");
+            PhoneNum.Add("9897754");
+            PhoneNum.Add("9897724");
+            PhoneNum.Add("8765432");
+            PhoneNum.Add("2549541");
+            PhoneNum.Add("9896528"); 
+            List<string> RegList = new List<string>();
+            foreach (string k in PhoneNum)
+            {
+
+
+                char[] charArr = k.ToCharArray();
+
+
+                string level0Exp = new string(new char[] { charArr[0], 'x', 'x', 'x', 'x', 'x', 'x' });
+                RegList.Add(level0Exp);
+
+                string level1Exp = new string(new char[] { charArr[0], charArr[1], 'x', 'x', 'x', 'x', 'x' });
+                RegList.Add(level1Exp);
+
+                string level2Exp = new string(new char[] { charArr[0], charArr[1], charArr[2], 'x', 'x', 'x', 'x' });
+                RegList.Add(level2Exp);
+
+                string level3Exp = new string(new char[] { charArr[0], charArr[1], charArr[2], charArr[3], 'x', 'x', 'x' });
+                RegList.Add(level3Exp);
+
+
+
+
+            }
+
+            RegList.Sort();
+
+            foreach (string j in RegList)
+            {
+                Console.WriteLine(j);
+            }
+            Console.WriteLine("----------------------------------");
+
+
+
+            List<string> RegExDistinct = RegList.Distinct().ToList();
+
+
+            foreach (string j in RegExDistinct)
+            {
+                Console.WriteLine(j);
+            }
+
+            Console.ReadKey();
+
+
+
+        }
+
+    }
+}
