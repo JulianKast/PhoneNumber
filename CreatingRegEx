@@ -4,35 +4,63 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Remoting.Activation;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ConsoleApplication3
 {
-    class Program
+    internal class Program
     {
-         static void Main(string[] args)
+        private static void Main(string[] args)
         {
+
+            string[] file = System.IO.File.ReadAllLines("TextFile1.txt");
 
             List<string> PhoneNum = new List<string>();
 
-          
-            
-    
-         
-            PhoneNum.Add("9897756");
+            //     foreach (string line in file)
+            //   {
+            //        PhoneNum.Add(line);
+
+            //   }
+
+
+
+
+
+            PhoneNum.Add("9898765");
+            PhoneNum.Add("9897654");
+            PhoneNum.Add("9896543");
+            PhoneNum.Add("9895432");
+            PhoneNum.Add("9894321");
+            PhoneNum.Add("9893219");
+            PhoneNum.Add("9892198");
+            PhoneNum.Add("9891987");
+
+            //    PhoneNum.Add("9897756");
             PhoneNum.Add("8765432");
             PhoneNum.Add("2547462");
-            PhoneNum.Add("9897561");
-            PhoneNum.Add("9897423");
+            //   PhoneNum.Add("9897561");
+            //   PhoneNum.Add("9897423");
             PhoneNum.Add("8765445");
-            PhoneNum.Add("2547462");
-            PhoneNum.Add("9897754");
-            PhoneNum.Add("9897724");
+            PhoneNum.Add("2546462");
+            //  PhoneNum.Add("9897754");
+            //  PhoneNum.Add("9897724");
             PhoneNum.Add("8765432");
             PhoneNum.Add("2549541");
-            PhoneNum.Add("9896528"); 
+            //  PhoneNum.Add("9896528");
+
             List<string> RegList = new List<string>();
+            List<string> Level1 = new List<string>();
+            List<string> Level2 = new List<string>();
+            List<string> Level3 = new List<string>();
+            List<string> Level4 = new List<string>();
+            List<string> Level5 = new List<string>();
+            List<string> Level6 = new List<string>();
+            List<string> Level7 = new List<string>();
+
             foreach (string k in PhoneNum)
             {
 
@@ -40,40 +68,122 @@ namespace ConsoleApplication3
                 char[] charArr = k.ToCharArray();
 
 
-                string level0Exp = new string(new char[] { charArr[0], 'x', 'x', 'x', 'x', 'x', 'x' });
-                RegList.Add(level0Exp);
+                string level1Exp = new string(new char[] {charArr[0], 'x', 'x', 'x', 'x', 'x', 'x'});
+                Level1.Add(level1Exp);
 
-                string level1Exp = new string(new char[] { charArr[0], charArr[1], 'x', 'x', 'x', 'x', 'x' });
-                RegList.Add(level1Exp);
+                string level2Exp = new string(new char[] {charArr[0], charArr[1], 'x', 'x', 'x', 'x', 'x'});
+                Level2.Add(level2Exp);
 
-                string level2Exp = new string(new char[] { charArr[0], charArr[1], charArr[2], 'x', 'x', 'x', 'x' });
-                RegList.Add(level2Exp);
+                string level3Exp = new string(new char[] {charArr[0], charArr[1], charArr[2], 'x', 'x', 'x', 'x'});
+                Level3.Add(level3Exp);
 
-                string level3Exp = new string(new char[] { charArr[0], charArr[1], charArr[2], charArr[3], 'x', 'x', 'x' });
-                RegList.Add(level3Exp);
+                string level4Exp = new string(new char[] {charArr[0], charArr[1], charArr[2], charArr[3], 'x', 'x', 'x'});
+                Level4.Add(level4Exp);
 
+                string level5Exp = new string(new char[] { charArr[0], charArr[1], charArr[2], charArr[3], charArr[4], 'x', 'x' });
+                Level5.Add(level5Exp);
 
+                string level6Exp = new string(new char[] { charArr[0], charArr[1], charArr[2], charArr[3], charArr[4], charArr[5], 'x' });
+                Level6.Add(level6Exp);
 
+                string level7Exp = new string(new char[] { charArr[0], charArr[1], charArr[2], charArr[3], charArr[4], charArr[5], charArr[6] });
+                Level7.Add(level7Exp);
 
+              
             }
 
-            RegList.Sort();
+            Level1.Sort();
+            Level2.Sort();
+            Level3.Sort();
+            Level4.Sort();
+            Level5.Sort();
+            Level6.Sort();
+            Level7.Sort();
 
-            foreach (string j in RegList)
-            {
-                Console.WriteLine(j);
-            }
-            Console.WriteLine("----------------------------------");
+            List<string> level1 = Level1.Distinct().ToList();
+            List<string> level2 = Level2.Distinct().ToList();
+            List<string> level3 = Level3.Distinct().ToList();
+            List<string> level4 = Level4.Distinct().ToList();
+            List<string> level5 = Level5.Distinct().ToList();
+            List<string> level6 = Level6.Distinct().ToList();
+            List<string> level7 = Level7.Distinct().ToList();
+
+            Level1Pattern(level1);
+            Level2Pattern(level2);
+            Level3Pattern(level3);
+            Level4Pattern(level4);
+            Level5Pattern(level5);
+            Level6Pattern(level6);
+            Level7Pattern(level7);
 
 
 
-            List<string> RegExDistinct = RegList.Distinct().ToList();
+
+            /*  List<string> Final3 = new List<string>();
+              for (int index0 = 0; index0 < level3.Count - 1; index0++) //Beging of Main Loop
+              {
+
+                  char[] charArr1 = level3[index0].ToCharArray();
+                  int results = 1;
+                  char[] nums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 
-            foreach (string j in RegExDistinct)
-            {
-                Console.WriteLine(j);
-            }
+
+                  for (int index = 1; index < level3.Count; index++)
+                  {
+
+                      char[] charArr2 = level3[index].ToCharArray();
+
+                      if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2])
+                      {
+
+                          for (int i = 0; i < nums.Length; i++)
+                          {
+
+                              if (charArr2[3] == nums[i])
+                              {
+
+                                  nums[i] = 'k';
+                                  Console.WriteLine(nums[i]);
+
+                              }
+
+                          }
+
+                          Console.ReadKey();
+                          level3.RemoveAt(index);
+                          index--;
+
+                      }
+
+                      results++;
+
+                  }
+
+                  string final = new string(new char[] { charArr1[0], charArr1[1], charArr1[2] });
+                  string x = "[";
+
+                  for (int index1 = 0; index1 < nums.Length; index1++)
+                  {
+
+                      if (nums[index1] != 'k')
+                      {
+
+                          x += nums[index1];
+
+                      }
+
+                  }
+
+                  x += "]";
+                  final += x += "xxx"; //reg ex created!!!
+                  Final3.Add(final);
+
+
+              }          //End of Main loop    */
+
+
+
 
             Console.ReadKey();
 
@@ -81,5 +191,556 @@ namespace ConsoleApplication3
 
         }
 
-    }
+        public static List<string> Level1Pattern(List<String> level1)
+        {
+            List<string> Final1 = new List<string>();
+
+            for (int index0 = 0; index0 < level1.Count - 1; index0++) //Beging of Main Loop
+            {
+
+                char[] charArr1 = level1[index0].ToCharArray();
+                int results = 1;
+                char[] nums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+
+
+                for (int index = 1; index < level1.Count; index++)
+                {
+
+                    char[] charArr2 = level1[index].ToCharArray();
+
+                   
+
+                        for (int i = 0; i < nums.Length; i++)
+                        {
+
+                            if (charArr2[0] == nums[i])
+                            {
+
+                                nums[i] = 'k';
+                              
+
+                            }
+
+                        }
+
+                     
+                        level1.RemoveAt(index);
+                        index--;
+
+                    
+
+                    results++;
+
+                }
+
+                
+                string x = "[";
+
+                for (int index1 = 0; index1 < nums.Length; index1++)
+                {
+
+                    if (nums[index1] != 'k')
+                    {
+
+                        x += nums[index1];
+
+                    }
+
+                }
+
+                x += "]";
+                string final = x += "xxxxxx"; //reg ex created!!!
+                Final1.Add(final);
+
+
+            }          //End of Main loop   
+
+            foreach (string j in Final1)
+            {
+
+                Console.WriteLine(j);
+
+            }
+
+
+            return Final1;
+
+
+        }
+
+        public static List<string> Level2Pattern(List<String> level2)
+        {
+            List<string> Final2 = new List<string>();
+
+            for (int index0 = 0; index0 < level2.Count - 1; index0++) //Beging of Main Loop
+            {
+
+                char[] charArr1 = level2[index0].ToCharArray();
+                int results = 1;
+                char[] nums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+
+
+                for (int index = 1; index < level2.Count; index++)
+                {
+
+                    char[] charArr2 = level2[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0]        )
+                    {
+
+                        for (int i = 0; i < nums.Length; i++)
+                        {
+
+                            if (charArr2[1] == nums[i])
+                            {
+
+                                nums[i] = 'k';
+                               
+
+                            }
+
+                        }
+
+                      
+                        level2.RemoveAt(index);
+                        index--;
+
+                    }
+
+                    results++;
+
+                }
+
+                string final = new string(new char[] { charArr1[0]});
+                string x = "[";
+
+                for (int index1 = 0; index1 < nums.Length; index1++)
+                {
+
+                    if (nums[index1] != 'k')
+                    {
+
+                        x += nums[index1];
+
+                    }
+
+                }
+
+                x += "]";
+                final += x += "xxxxxx"; //reg ex created!!!
+                Final2.Add(final);
+
+
+            }          //End of Main loop   
+
+            foreach (string j in Final2)
+            {
+
+                Console.WriteLine(j);
+
+            }
+
+
+            return Final2;
+
+        }
+
+        public static List<string> Level3Pattern(List<String> level3 )
+        {
+
+            List<string> Final3 = new List<string>();
+
+            for (int index0 = 0; index0 < level3.Count - 1; index0++) //Beging of Main Loop
+            {
+
+                char[] charArr1 = level3[index0].ToCharArray();
+                int results = 1;
+                char[] nums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+
+
+                for (int index = 1; index < level3.Count; index++)
+                {
+
+                    char[] charArr2 = level3[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1])
+                    {
+
+                        for (int i = 0; i < nums.Length; i++)
+                        {
+
+                            if (charArr2[2] == nums[i])
+                            {
+
+                                nums[i] = 'k';
+                              
+
+                            }
+
+                        }
+
+                       
+                        level3.RemoveAt(index);
+                        index--;
+
+                    }
+
+                    results++;
+
+                }
+
+                string final = new string(new char[] { charArr1[0], charArr1[1]});
+                string x = "[";
+
+                for (int index1 = 0; index1 < nums.Length; index1++)
+                {
+
+                    if (nums[index1] != 'k')
+                    {
+
+                        x += nums[index1];
+
+                    }
+
+                }
+
+                x += "]";
+                final += x += "xxxxx"; //reg ex created!!!
+                Final3.Add(final);
+
+
+            }          //End of Main loop   
+
+            foreach (string j in Final3)
+            {
+
+                Console.WriteLine(j);
+
+            }
+
+
+            return Final3;
+        }
+
+        public static List<string> Level4Pattern(List<String> level4)
+        {
+
+            List<string> Final4 = new List<string>();
+
+            for (int index0 = 0; index0 < level4.Count - 1; index0++) //Beging of Main Loop
+            {
+
+                char[] charArr1 = level4[index0].ToCharArray();
+                int results = 1;
+                char[] nums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+
+
+                for (int index = 1; index < level4.Count; index++)
+                {
+
+                    char[] charArr2 = level4[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2])
+                    {
+
+                        for (int i = 0; i < nums.Length; i++)
+                        {
+
+                            if (charArr2[3] == nums[i])
+                            {
+
+                                nums[i] = 'k';
+                            
+
+                            }
+
+                        }
+
+                        
+                        level4.RemoveAt(index);
+                        index--;
+
+                    }
+
+                    results++;
+
+                }
+
+                string final = new string(new char[] { charArr1[0], charArr1[1], charArr1[2] });
+                string x = "[";
+
+                for (int index1 = 0; index1 < nums.Length; index1++)
+                {
+
+                    if (nums[index1] != 'k')
+                    {
+
+                        x += nums[index1];
+
+                    }
+
+                }
+
+                x += "]";
+                final += x += "xxx"; //reg ex created!!!
+                Final4.Add(final);
+
+
+            }          //End of Main loop   
+
+            foreach (string j in Final4)
+            {
+
+                Console.WriteLine(j);
+
+            }
+
+
+            return Final4;
+
+        }
+
+        public static List<string> Level5Pattern(List<String> level5)
+        {
+            List<string> Final5 = new List<string>();
+
+            for (int index0 = 0; index0 < level5.Count - 1; index0++) //Beging of Main Loop
+            {
+
+                char[] charArr1 = level5[index0].ToCharArray();
+                int results = 1;
+                char[] nums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+
+
+                for (int index = 1; index < level5.Count; index++)
+                {
+
+                    char[] charArr2 = level5[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2] &&
+                        charArr1[3] == charArr2[3])
+                    {
+
+                        for (int i = 0; i < nums.Length; i++)
+                        {
+
+                            if (charArr2[4] == nums[i])
+                            {
+
+                                nums[i] = 'k';
+                             
+
+                            }
+
+                        }
+
+                       
+                        level5.RemoveAt(index);
+                        index--;
+
+                    }
+
+                    results++;
+
+                }
+
+                string final = new string(new char[] { charArr1[0], charArr1[1], charArr1[2],charArr1[3] });
+                string x = "[";
+
+                for (int index1 = 0; index1 < nums.Length; index1++)
+                {
+
+                    if (nums[index1] != 'k')
+                    {
+
+                        x += nums[index1];
+
+                    }
+
+                }
+
+                x += "]";
+                final += x += "xx"; //reg ex created!!!
+                Final5.Add(final);
+
+
+            }          //End of Main loop   
+
+            foreach (string j in Final5)
+            {
+
+                Console.WriteLine(j);
+
+            }
+
+
+            return Final5;
+
+        }
+
+        public static List<string> Level6Pattern(List<String> level6)
+        {
+            List<string> Final6 = new List<string>();
+
+            for (int index0 = 0; index0 < level6.Count - 1; index0++) //Beging of Main Loop
+            {
+
+                char[] charArr1 = level6[index0].ToCharArray();
+                int results = 1;
+                char[] nums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+
+
+                for (int index = 1; index < level6.Count; index++)
+                {
+
+                    char[] charArr2 = level6[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2] &&
+                        charArr1[3] == charArr2[3] && charArr1[4] == charArr2[4])
+                    {
+
+                        for (int i = 0; i < nums.Length; i++)
+                        {
+
+                            if (charArr2[5] == nums[i])
+                            {
+
+                                nums[i] = 'k';
+                                
+
+                            }
+
+                        }
+
+                       
+                        level6.RemoveAt(index);
+                        index--;
+
+                    }
+
+                    results++;
+
+                }
+
+                string final = new string(new char[] { charArr1[0], charArr1[1], charArr1[2], charArr1[3], charArr1[4] });
+                string x = "[";
+
+                for (int index1 = 0; index1 < nums.Length; index1++)
+                {
+
+                    if (nums[index1] != 'k')
+                    {
+
+                        x += nums[index1];
+
+                    }
+
+                }
+
+                x += "]";
+                final += x += "x"; //reg ex created!!!
+                Final6.Add(final);
+
+
+            }          //End of Main loop   
+
+            foreach (string j in Final6)
+            {
+
+                Console.WriteLine(j);
+
+            }
+
+
+            return Final6;
+
+        }
+
+        public static List<string> Level7Pattern(List<String> level7)
+        {
+
+            List<string> Final7 = new List<string>();
+
+            for (int index0 = 0; index0 < level7.Count - 1; index0++) //Beging of Main Loop
+            {
+
+                char[] charArr1 = level7[index0].ToCharArray();
+                int results = 1;
+                char[] nums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+
+
+                for (int index = 1; index < level7.Count; index++)
+                {
+
+                    char[] charArr2 = level7[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2] &&
+                        charArr1[3] == charArr2[3] && charArr1[4] == charArr2[4] && charArr1[5] == charArr2[5])
+                    {
+
+                        for (int i = 0; i < nums.Length; i++)
+                        {
+
+                            if (charArr2[6] == nums[i])
+                            {
+
+                                nums[i] = 'k';
+                               
+
+                            }
+
+                        }
+
+                     
+                        level7.RemoveAt(index);
+                        index--;
+
+                    }
+
+                    results++;
+
+                }
+
+                string final = new string(new char[] { charArr1[0], charArr1[1], charArr1[2], charArr1[3], charArr1[4], charArr1[5] });
+                string x = "[";
+
+                for (int index1 = 0; index1 < nums.Length; index1++)
+                {
+
+                    if (nums[index1] != 'k')
+                    {
+
+                        x += nums[index1];
+
+                    }
+
+                }
+
+                x += "]";
+                final += x; //reg ex created!!!
+                Final7.Add(final);
+
+
+            }          //End of Main loop   
+
+            foreach (string j in Final7)
+            {
+
+                Console.WriteLine(j);
+
+            }
+
+
+            return Final7;
+
+        }
+
+}
 }
