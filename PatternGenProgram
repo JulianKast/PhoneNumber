@@ -11,7 +11,7 @@ namespace PatterenGen
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
             if (args == null) throw new ArgumentNullException(nameof(args));
-            var file = File.ReadAllLines("Phonenum3.txt");
+            var file = File.ReadAllLines("PhoneNumbers.txt");
 
             var phoneNum = file.ToList();
 
