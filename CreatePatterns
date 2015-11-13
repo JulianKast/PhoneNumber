@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-
-namespace ConsoleApplication3
+namespace PatterenGen
 {
     internal class CreatePatterns
     {
@@ -11,41 +11,31 @@ namespace ConsoleApplication3
             var finalLevel1 = new List<string>();
             char[] nums = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-            for (var index0 = 0; index0 < level1.Count; index0++) //Beging of Main Loop
+            foreach (var charArr1 in level1.Select(t => t.ToCharArray()))
             {
-                var charArr1 = level1[index0].ToCharArray(); //Breaks down Each Phone Number into a Char Array
                 for (var i = 0; i < nums.Length; i++)
                 {
                     if (nums[i] == charArr1[0])
                     {
                         nums[i] = 'k';
-                    }// if the numbers match an element in the array, changhes number to letter k
-                } 
-            }
-
-
-            var expression = "";// Creats the pattern
-
-            Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
-
-            for (int i = 0; i < nums.Length; i++)
-            {
-                if (nums[i] != 'k')
-                {
-                    isNotK = true;
+                    } // if the numbers match an element in the array, changhes number to letter k
                 }
             }
-            if (isNotK)
+
+            var expression = ""; // Creats the pattern
+
+            var isNotK = false; // boolean check to see if there is a number at a specified location not in use
+
+            // ReSharper disable once UnusedVariable
+            foreach (var i in nums.Where(i => i != 'k'))
             {
-                EXP(ref expression, nums);
-
-                expression += "xxxxx";
-                finalLevel1.Add(expression);
+                isNotK = true;
             }
-            
-           
-           
+            if (!isNotK) return finalLevel1;
+            Exp(ref expression, nums);
 
+            expression += "XXXXX";
+            finalLevel1.Add(expression);
             return finalLevel1;
         }
 
@@ -62,45 +52,34 @@ namespace ConsoleApplication3
                 {
                     var charArr2 = level2[index].ToCharArray();
 
-                    if (charArr1[0] == charArr2[0])
+                    if (charArr1[0] != charArr2[0]) continue;
+                    for (var k = 0; k < nums.Length; k++)
                     {
-                        for (var k = 0; k < nums.Length; k++)
+                        if (nums[k] == charArr2[1])
                         {
-                            if (nums[k] == charArr2[1])
-                            {
-                                nums[k] = 'k';
-                            } // if the numbers match an element in the array, changhes number to letter k
-                        }
-
-                        if (index0 != index)
-                        {
-                            level2.RemoveAt(index); // Removes matches from list so we dont have duplicates
-                            index--;
-                        }
+                            nums[k] = 'k';
+                        } // if the numbers match an element in the array, changhes number to letter k
                     }
+
+                    if (index0 == index) continue;
+                    level2.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                    index--;
                 }
+
                 var expression = new string(new[] {charArr1[0]}); // Creates The pattern
+                var isNotK = false; // boolean check to see if there is a number at a specified location not in use
 
-                Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
-
-                for (int i = 0; i < nums.Length; i++)
+                // ReSharper disable once UnusedVariable
+                foreach (var i in nums.Where(i => i != 'k'))
                 {
-                    if (nums[i] != 'k')
-                    {
-                        isNotK = true;
-                    }
+                    isNotK = true;
                 }
-                if (isNotK)
-                {
-                    EXP(ref expression, nums);
+                if (!isNotK) continue;
+                Exp(ref expression, nums);
 
-                    expression += "xxxx"; //Pattern created!!!
-                    finalLevel2.Add(expression);
-                }
-            
-               
+                expression += "XXXX"; //Pattern created!!!
+                finalLevel2.Add(expression);
             } //End of Main loop
-
             return finalLevel2;
         }
 
@@ -117,45 +96,34 @@ namespace ConsoleApplication3
                 {
                     var charArr2 = level3[index].ToCharArray();
 
-                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1])
+                    if (charArr1[0] != charArr2[0] || charArr1[1] != charArr2[1]) continue;
+                    for (var k = 0; k < nums.Length; k++)
                     {
-                        for (var k = 0; k < nums.Length; k++)
+                        if (nums[k] == charArr2[2])
                         {
-                            if (nums[k] == charArr2[2])
-                            {
-                                nums[k] = 'k';
-                            } // if the numbers match an element in the array, changhes number to letter k
-                        } 
-
-                        if (index0 != index)
-                        {
-                            level3.RemoveAt(index); // Removes matches from list so we dont have duplicates
-                            index--;
-                        }
+                            nums[k] = 'k';
+                        } // if the numbers match an element in the array, changhes number to letter k
                     }
+
+                    if (index0 == index) continue;
+                    level3.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                    index--;
                 }
                 var expression = new string(new[] {charArr1[0], charArr1[1]}); // Creates The pattern
 
-                Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
+                var isNotK = false; // boolean check to see if there is a number at a specified location not in use
 
-                for (int i = 0; i < nums.Length; i++)
+                // ReSharper disable once UnusedVariable
+                foreach (var i in nums.Where(i => i != 'k'))
                 {
-                    if (nums[i] != 'k')
-                    {
-                        isNotK = true;
-                    }
+                    isNotK = true;
                 }
-                if (isNotK)
-                {
-                    EXP(ref expression, nums);
+                if (!isNotK) continue;
+                Exp(ref expression, nums);
 
-                    expression += "xxxx"; //Pattern created!!!
-                    finalLevel3.Add(expression);
-                }
-
-
+                expression += "XXX"; //Pattern created!!!
+                finalLevel3.Add(expression);
             } //End of Main loop
-
             return finalLevel3;
         }
 
@@ -172,44 +140,36 @@ namespace ConsoleApplication3
                 {
                     var charArr2 = level4[index].ToCharArray();
 
-                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2])
+                    if (charArr1[0] != charArr2[0] || charArr1[1] != charArr2[1] || charArr1[2] != charArr2[2])
+                        continue;
+                    for (var k = 0; k < nums.Length; k++)
                     {
-                        for (var k = 0; k < nums.Length; k++)
+                        if (nums[k] == charArr2[3])
                         {
-                            if (nums[k] == charArr2[3])
-                            {
-                                nums[k] = 'k';
-                            } // if the numbers match an element in the array, changhes number to letter k
-                        } 
-
-                        if (index0 != index)
-                        {
-                            level4.RemoveAt(index); // Removes matches from list so we dont have duplicates
-                            index--;
-                        }
+                            nums[k] = 'k';
+                        } // if the numbers match an element in the array, changhes number to letter k
                     }
+                    if (index0 == index) continue;
+                    level4.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                    index--;
                 }
                 var expression = new string(new[] {charArr1[0], charArr1[1], charArr1[2]}); // Creates The pattern
 
-                Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
+                var isNotK = false; // boolean check to see if there is a number at a specified location not in use
 
-                for (int i = 0; i < nums.Length; i++)
+                // ReSharper disable once UnusedVariable
+                foreach (var t in nums.Where(t => t != 'k'))
                 {
-                    if (nums[i] != 'k')
-                    {
-                        isNotK = true;
-                    }
+                    isNotK = true;
                 }
                 if (isNotK)
                 {
-                    EXP(ref expression, nums);
+                    Exp(ref expression, nums);
 
-                    expression += "xxxx"; //Pattern created!!!
+                    expression += "XX"; //Pattern created!!!
                     finalLevel4.Add(expression);
                 }
-
             } //End of Main loop
-
             return finalLevel4;
         }
 
@@ -226,23 +186,18 @@ namespace ConsoleApplication3
                 {
                     var charArr2 = level5[index].ToCharArray();
 
-                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2] &&
-                        charArr1[3] == charArr2[3])
+                    if (charArr1[0] != charArr2[0] || charArr1[1] != charArr2[1] || charArr1[2] != charArr2[2] ||
+                        charArr1[3] != charArr2[3]) continue;
+                    for (var k = 0; k < nums.Length; k++)
                     {
-                        for (var k = 0; k < nums.Length; k++)
+                        if (nums[k] == charArr2[4])
                         {
-                            if (nums[k] == charArr2[4])
-                            {
-                                nums[k] = 'k';
-                            } // if the numbers match an element in the array, changhes number to letter k
-                        }
-
-                        if (index0 != index)
-                        {
-                            level5.RemoveAt(index); // Removes matches from list so we dont have duplicates
-                            index--;
-                        }
+                            nums[k] = 'k';
+                        } // if the numbers match an element in the array, changhes number to letter k
                     }
+                    if (index0 == index) continue;
+                    level5.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                    index--;
                 }
                 var expression = new string(new[]
                 {
@@ -250,26 +205,20 @@ namespace ConsoleApplication3
                     charArr1[3]
                 }); // Creates The pattern
 
-                Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
+                var isNotK = false; // boolean check to see if there is a number at a specified location not in use
 
-                for (int i = 0; i < nums.Length; i++)
+                foreach (var t in nums)
                 {
-                    if (nums[i] != 'k')
+                    if (t != 'k')
                     {
                         isNotK = true;
                     }
                 }
-                if (isNotK)
-                {
-                    EXP(ref expression, nums);
-
-                    expression += "xxxx"; //Pattern created!!!
-                    finalLevel5.Add(expression);
-                }
-
-
+                if (!isNotK) continue;
+                Exp(ref expression, nums);
+                expression += "X"; //Pattern created!!!
+                finalLevel5.Add(expression);
             } //End of Main loop
-
             return finalLevel5;
         }
 
@@ -286,23 +235,20 @@ namespace ConsoleApplication3
                 {
                     var charArr2 = level6[index].ToCharArray();
 
-                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2] &&
-                        charArr1[3] == charArr2[3] && charArr1[4] == charArr2[4])
+                    if (charArr1[0] != charArr2[0] || charArr1[1] != charArr2[1] || charArr1[2] != charArr2[2] ||
+                        charArr1[3] != charArr2[3] || charArr1[4] != charArr2[4]) continue;
+                    for (var k = 0; k < nums.Length; k++)
                     {
-                        for (var k = 0; k < nums.Length; k++)
+                        if (nums[k] == charArr2[5])
                         {
-                            if (nums[k] == charArr2[5])
-                            {
-                                nums[k] = 'k';// if the numbers match an element in the array, changhes number to letter k
-                            } 
-                        }
-
-                        if (index0 != index)
-                        {
-                            level6.RemoveAt(index); // Removes matches from list so we dont have duplicates
-                            index--;
+                            nums[k] = 'k';
+                            // if the numbers match an element in the array, changhes number to letter k
                         }
                     }
+
+                    if (index0 == index) continue;
+                    level6.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                    index--;
                 }
                 var expression = new string(new[]
                 {
@@ -310,67 +256,51 @@ namespace ConsoleApplication3
                     charArr1[3], charArr1[4]
                 }); // Creates The pattern
 
+                var isNotK = false;
 
-
-                Boolean isNotK = false;
-
-                for (int i = 0; i < nums.Length; i++)
+                // ReSharper disable once UnusedVariable
+                foreach (var t in nums.Where(t => t != 'k'))
                 {
-                    if (nums[i] != 'k')
-                    {
-                        isNotK = true;
-                    }
+                    isNotK = true;
                 }
-                if (isNotK)
-                {
-                    EXP(ref expression, nums);
+                if (!isNotK) continue;
+                Exp(ref expression, nums);
 
-                    expression += "xxxx"; //Pattern created!!!
-                    finalLevel6.Add(expression);
-                }
-
-
-
-
-
+              
+                finalLevel6.Add(expression);
             } //End of Main loop
-
             return finalLevel6;
         }
 
-        public static string EXP(ref String expression, char[] nums)
+        public static string Exp(ref string expression, char[] nums)
         {
             expression += "[";
-            for (var index1 = 0; index1 < nums.Length; index1++)// simplifies the pattern EX: 0-35-9
+            for (var index1 = 0; index1 < nums.Length; index1++) // simplifies the pattern EX: 0-35-9
             {
-                if (index1 < nums.Length && nums[index1] != 'k')
+                if (index1 >= nums.Length || nums[index1] == 'k') continue;
+                expression += nums[index1];
+                if (index1 + 1 < nums.Length && index1 + 2 < nums.Length && nums[index1 + 1] != 'k' &&
+                    nums[index1 + 2] != 'k')
                 {
-                    expression += nums[index1];
-                    if (index1 + 1 < nums.Length && index1 + 2 < nums.Length && nums[index1 + 1] != 'k' && nums[index1 + 2] != 'k')
+                    expression += '-';
+                    var j = index1;
+                    while (j < nums.Length && nums[j] != 'k')
                     {
-                        expression += '-';
-                        int j = index1;
-                        while (j < nums.Length && nums[j] != 'k')
-                        {
-                            j++;
-                        }
-                        j--;
-                        expression += nums[j];
-                        index1 = j;
+                        j++;
                     }
-                    else if (index1 + 1 < nums.Length && nums[index1 + 1] != 'k')
-                    {
-                        expression += nums[index1 + 1];
-                        index1++;
-                    }
-
+                    j--;
+                    expression += nums[j];
+                    index1 = j;
                 }
-
+                else if (index1 + 1 < nums.Length && nums[index1 + 1] != 'k')
+                {
+                    expression += nums[index1 + 1];
+                    index1++;
+                }
             }
             expression += "]";
             return expression;
         }
-
 
         public static void PrintList(List<string> plist)
         {
@@ -379,6 +309,5 @@ namespace ConsoleApplication3
                 Console.WriteLine(expression); //prints out list
             }
         }
-
     }
 }
