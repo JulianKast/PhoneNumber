@@ -1,0 +1,384 @@
+using System;
+using System.Collections.Generic;
+
+
+namespace ConsoleApplication3
+{
+    internal class CreatePatterns
+    {
+        public static List<string> Level1Pattern(List<string> level1)
+        {
+            var finalLevel1 = new List<string>();
+            char[] nums = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+            for (var index0 = 0; index0 < level1.Count; index0++) //Beging of Main Loop
+            {
+                var charArr1 = level1[index0].ToCharArray(); //Breaks down Each Phone Number into a Char Array
+                for (var i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] == charArr1[0])
+                    {
+                        nums[i] = 'k';
+                    }// if the numbers match an element in the array, changhes number to letter k
+                } 
+            }
+
+
+            var expression = "";// Creats the pattern
+
+            Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != 'k')
+                {
+                    isNotK = true;
+                }
+            }
+            if (isNotK)
+            {
+                EXP(ref expression, nums);
+
+                expression += "xxxxx";
+                finalLevel1.Add(expression);
+            }
+            
+           
+           
+
+            return finalLevel1;
+        }
+
+        public static List<string> Level2Pattern(List<string> level2)
+        {
+            var finalLevel2 = new List<string>();
+
+            for (var index0 = 0; index0 < level2.Count; index0++) //Beging of Main Loop
+            {
+                var charArr1 = level2[index0].ToCharArray(); // converts phone number from list to a char array
+                char[] nums = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+                for (var index = 0; index < level2.Count; index++)
+                {
+                    var charArr2 = level2[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0])
+                    {
+                        for (var k = 0; k < nums.Length; k++)
+                        {
+                            if (nums[k] == charArr2[1])
+                            {
+                                nums[k] = 'k';
+                            } // if the numbers match an element in the array, changhes number to letter k
+                        }
+
+                        if (index0 != index)
+                        {
+                            level2.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                            index--;
+                        }
+                    }
+                }
+                var expression = new string(new[] {charArr1[0]}); // Creates The pattern
+
+                Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] != 'k')
+                    {
+                        isNotK = true;
+                    }
+                }
+                if (isNotK)
+                {
+                    EXP(ref expression, nums);
+
+                    expression += "xxxx"; //Pattern created!!!
+                    finalLevel2.Add(expression);
+                }
+            
+               
+            } //End of Main loop
+
+            return finalLevel2;
+        }
+
+        public static List<string> Level3Pattern(List<string> level3)
+        {
+            var finalLevel3 = new List<string>();
+
+            for (var index0 = 0; index0 < level3.Count; index0++) //Beging of Main Loop
+            {
+                var charArr1 = level3[index0].ToCharArray(); // converts phone number from list to a char array
+                char[] nums = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+                for (var index = 0; index < level3.Count; index++)
+                {
+                    var charArr2 = level3[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1])
+                    {
+                        for (var k = 0; k < nums.Length; k++)
+                        {
+                            if (nums[k] == charArr2[2])
+                            {
+                                nums[k] = 'k';
+                            } // if the numbers match an element in the array, changhes number to letter k
+                        } 
+
+                        if (index0 != index)
+                        {
+                            level3.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                            index--;
+                        }
+                    }
+                }
+                var expression = new string(new[] {charArr1[0], charArr1[1]}); // Creates The pattern
+
+                Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] != 'k')
+                    {
+                        isNotK = true;
+                    }
+                }
+                if (isNotK)
+                {
+                    EXP(ref expression, nums);
+
+                    expression += "xxxx"; //Pattern created!!!
+                    finalLevel3.Add(expression);
+                }
+
+
+            } //End of Main loop
+
+            return finalLevel3;
+        }
+
+        public static List<string> Level4Pattern(List<string> level4)
+        {
+            var finalLevel4 = new List<string>();
+
+            for (var index0 = 0; index0 < level4.Count; index0++) //Beging of Main Loop
+            {
+                var charArr1 = level4[index0].ToCharArray(); // converts phone number from list to a char array
+                char[] nums = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+                for (var index = 0; index < level4.Count; index++)
+                {
+                    var charArr2 = level4[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2])
+                    {
+                        for (var k = 0; k < nums.Length; k++)
+                        {
+                            if (nums[k] == charArr2[3])
+                            {
+                                nums[k] = 'k';
+                            } // if the numbers match an element in the array, changhes number to letter k
+                        } 
+
+                        if (index0 != index)
+                        {
+                            level4.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                            index--;
+                        }
+                    }
+                }
+                var expression = new string(new[] {charArr1[0], charArr1[1], charArr1[2]}); // Creates The pattern
+
+                Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] != 'k')
+                    {
+                        isNotK = true;
+                    }
+                }
+                if (isNotK)
+                {
+                    EXP(ref expression, nums);
+
+                    expression += "xxxx"; //Pattern created!!!
+                    finalLevel4.Add(expression);
+                }
+
+            } //End of Main loop
+
+            return finalLevel4;
+        }
+
+        public static List<string> Level5Pattern(List<string> level5)
+        {
+            var finalLevel5 = new List<string>();
+
+            for (var index0 = 0; index0 < level5.Count; index0++) //Beging of Main Loop
+            {
+                var charArr1 = level5[index0].ToCharArray(); // converts phone number from list to a char array
+                char[] nums = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+                for (var index = 0; index < level5.Count; index++)
+                {
+                    var charArr2 = level5[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2] &&
+                        charArr1[3] == charArr2[3])
+                    {
+                        for (var k = 0; k < nums.Length; k++)
+                        {
+                            if (nums[k] == charArr2[4])
+                            {
+                                nums[k] = 'k';
+                            } // if the numbers match an element in the array, changhes number to letter k
+                        }
+
+                        if (index0 != index)
+                        {
+                            level5.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                            index--;
+                        }
+                    }
+                }
+                var expression = new string(new[]
+                {
+                    charArr1[0], charArr1[1], charArr1[2],
+                    charArr1[3]
+                }); // Creates The pattern
+
+                Boolean isNotK = false; // boolean check to see if there is a number at a specified location not in use
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] != 'k')
+                    {
+                        isNotK = true;
+                    }
+                }
+                if (isNotK)
+                {
+                    EXP(ref expression, nums);
+
+                    expression += "xxxx"; //Pattern created!!!
+                    finalLevel5.Add(expression);
+                }
+
+
+            } //End of Main loop
+
+            return finalLevel5;
+        }
+
+        public static List<string> Level6Pattern(List<string> level6)
+        {
+            var finalLevel6 = new List<string>();
+
+            for (var index0 = 0; index0 < level6.Count; index0++) //Beginning of Main Loop
+            {
+                var charArr1 = level6[index0].ToCharArray(); // converts phone number from list to a char array
+                char[] nums = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+                for (var index = 0; index < level6.Count; index++)
+                {
+                    var charArr2 = level6[index].ToCharArray();
+
+                    if (charArr1[0] == charArr2[0] && charArr1[1] == charArr2[1] && charArr1[2] == charArr2[2] &&
+                        charArr1[3] == charArr2[3] && charArr1[4] == charArr2[4])
+                    {
+                        for (var k = 0; k < nums.Length; k++)
+                        {
+                            if (nums[k] == charArr2[5])
+                            {
+                                nums[k] = 'k';// if the numbers match an element in the array, changhes number to letter k
+                            } 
+                        }
+
+                        if (index0 != index)
+                        {
+                            level6.RemoveAt(index); // Removes matches from list so we dont have duplicates
+                            index--;
+                        }
+                    }
+                }
+                var expression = new string(new[]
+                {
+                    charArr1[0], charArr1[1], charArr1[2],
+                    charArr1[3], charArr1[4]
+                }); // Creates The pattern
+
+
+
+                Boolean isNotK = false;
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] != 'k')
+                    {
+                        isNotK = true;
+                    }
+                }
+                if (isNotK)
+                {
+                    EXP(ref expression, nums);
+
+                    expression += "xxxx"; //Pattern created!!!
+                    finalLevel6.Add(expression);
+                }
+
+
+
+
+
+            } //End of Main loop
+
+            return finalLevel6;
+        }
+
+        public static string EXP(ref String expression, char[] nums)
+        {
+            expression += "[";
+            for (var index1 = 0; index1 < nums.Length; index1++)// simplifies the pattern EX: 0-35-9
+            {
+                if (index1 < nums.Length && nums[index1] != 'k')
+                {
+                    expression += nums[index1];
+                    if (index1 + 1 < nums.Length && index1 + 2 < nums.Length && nums[index1 + 1] != 'k' && nums[index1 + 2] != 'k')
+                    {
+                        expression += '-';
+                        int j = index1;
+                        while (j < nums.Length && nums[j] != 'k')
+                        {
+                            j++;
+                        }
+                        j--;
+                        expression += nums[j];
+                        index1 = j;
+                    }
+                    else if (index1 + 1 < nums.Length && nums[index1 + 1] != 'k')
+                    {
+                        expression += nums[index1 + 1];
+                        index1++;
+                    }
+
+                }
+
+            }
+            expression += "]";
+            return expression;
+        }
+
+
+        public static void PrintList(List<string> plist)
+        {
+            foreach (var expression in plist)
+            {
+                Console.WriteLine(expression); //prints out list
+            }
+        }
+
+    }
+}
