@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace VariableLengthPatternGen
+{
+    class Program
+    {
+        /// <summary>
+        /// Main method, reads in from file list of numbers and breaks them up
+        /// into sets so number 5555 would generate 5, 55, 555, 5555
+        /// Then sends them to CreatePatterns to create the patterns
+        /// </summary>
+        /// <param name="args"></param>
+
+        private static void Main(string[] args)
+        {
+            //Reads in file and creates a list
+            var file = File.ReadAllLines("test.txt");
+            var phoneNum = file.ToList();
+
+            //get the length taht the final expression needs to be
+            var size = phoneNum[0].Length;
+            var levelAll = new List<string>();
+
+            foreach (var k in phoneNum) // brakes up each number passed through and adds it to the proper list
+            {
+                var charArr = k.ToCharArray();
+                var x = "";
+                foreach (var t in charArr)
+                {
+                    x += new string(new[] { t });
+
+                    levelAll.Add(x);
+                }
+            }
+
+            levelAll = PatterenGen.PatternList(levelAll, size);
+            levelAll.Sort();
+            PrintList(levelAll);
+            Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Pritns out the final patterns.
+        /// </summary>
+        /// <param name="plist"> is the final list being printed out to the console</param>
+        public static void PrintList(List<string> plist)
+        {
+            foreach (var expression in plist)
+            {
+                Console.WriteLine(expression); //prints out list
+            }
+        }
+    }
+}
+
+    }
