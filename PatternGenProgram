@@ -3,75 +3,55 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace PatterenGen
+namespace VariableLengthPatternGen
 {
-    internal class Program
+    class Program
     {
+        /// <summary>
+        /// Main method, reads in from file list of numbers and breaks them up
+        /// into sets so number 5555 would generate 5, 55, 555, 5555
+        /// Then sends them to CreatePatterns to create the patterns
+        /// </summary>
+        /// <param name="args"></param>
+
         private static void Main(string[] args)
         {
-            if (args == null) throw new ArgumentNullException(nameof(args));
-            if (args == null) throw new ArgumentNullException(nameof(args));
-            
-            var file = File.ReadAllLines("PhoneNumbers.txt");
+            //Reads in file and creates a list
+            var file = File.ReadAllLines("test.txt");
             var phoneNum = file.ToList();
 
-            var level1 = new List<string>();
-            var level2 = new List<string>();
-            var level3 = new List<string>();
-            var level4 = new List<string>();
-            var level5 = new List<string>();
-            var level6 = new List<string>();
-  
-            foreach (var k in phoneNum) // brakes up each number passed throug and adds it to the proper list
+            //get the length taht the final expression needs to be
+            var size = phoneNum[0].Length;
+            var levelAll = new List<string>();
+
+            foreach (var k in phoneNum) // brakes up each number passed through and adds it to the proper list
             {
                 var charArr = k.ToCharArray();
+                var x = "";
+                foreach (var t in charArr)
+                {
+                    x += new string(new[] { t });
 
-                var level1Exp = new string(new[] {charArr[0]});
-                level1.Add(level1Exp);
-
-                var level2Exp = new string(new[] {charArr[0], charArr[1]});
-                level2.Add(level2Exp);
-
-                var level3Exp = new string(new[] {charArr[0], charArr[1], charArr[2]});
-                level3.Add(level3Exp);
-
-                var level4Exp = new string(new[] {charArr[0], charArr[1], charArr[2], charArr[3]});
-                level4.Add(level4Exp);
-
-                var level5Exp = new string(new[] {charArr[0], charArr[1], charArr[2], charArr[3], charArr[4]});
-                level5.Add(level5Exp);
-
-                var level6Exp =
-                    new string(new[] {charArr[0], charArr[1], charArr[2], charArr[3], charArr[4], charArr[5]});
-                level6.Add(level6Exp);
+                    levelAll.Add(x);
+                }
             }
 
-            level1.Sort();
-            level2.Sort();
-            level3.Sort();
-            level4.Sort(); //Sorts each list
-            level5.Sort();
-            level6.Sort();
-          
-            level1 = CreatePatterns.Level1Pattern(level1);
-            level2 = CreatePatterns.Level2Pattern(level2);
-            level3 = CreatePatterns.Level3Pattern(level3);
-            level4 = CreatePatterns.Level4Pattern(level4);
-            level5 = CreatePatterns.Level5Pattern(level5);
-            level6 = CreatePatterns.Level6Pattern(level6);
-
-            var mergList = level1.Union(level2).Union(level3).Union(level4).Union(level5).Union(level6).ToList();
-            mergList.Sort();
-            CreatePatterns.PrintList(mergList);
-
-            var sw = new StreamWriter("num.txt");
-
-            foreach (var r in mergList)
-            {
-                sw.WriteLine(r);
-            }
-
+            levelAll = PatterenGen.PatternList(levelAll, size);
+            levelAll.Sort();
+            PrintList(levelAll);
             Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Pritns out the final patterns.
+        /// </summary>
+        /// <param name="plist"> is the final list being printed out to the console</param>
+        public static void PrintList(List<string> plist)
+        {
+            foreach (var expression in plist)
+            {
+                Console.WriteLine(expression); //prints out list
+            }
         }
     }
 }
